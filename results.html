@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Results</title>
+
+		<style>
+			div#problemArea {
+			padding:justify;
+			background-color:inherit;
+			color: black;
+			text-align: center;
+            width:100%;
+        } 
+		</style>
+
+
+
+	</head>
+	<body>
+		<h1 style="text-align: center;">Registration Form</h1>
+		<div id="problemArea"> Trainee personal information: <br/>--------------------------------------------------<br/></div>
+		
+      	<script>
+		// Utilities
+		
+function getUrlVars(name, url) {
+    var vars = {};
+	var uri=window.location.href;
+	var decuri=decodeURIComponent(uri);
+	var telos=decuri.replace("+"," ");
+    var parts = telos.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+				if(vars[key]){
+					if(vars[key] instanceof Array){
+						vars[key].push(value);
+					}else{
+						vars[key] = [vars[key], value];
+					}
+				}else{
+					vars[key] = value;
+				}
+			});
+			return vars;
+		}
+
+	
+		
+		
+		// AppendTo(ID,TEXT) adds the text to the element with ID.
+		function appendTo(ID,Text){
+			var x = document.getElementById(ID);
+			x.innerHTML = x.innerHTML + "<br/>" + Text + "<br />";
+		}
+		
+		
+		var first = getUrlVars()["clientSurname"];
+		var second = getUrlVars()["clientFirstname"];
+		var third = getUrlVars()["clientMiddlename"];
+        var fourth = getUrlVars()["month"];
+		var fifth = getUrlVars()["address"];
+		var sixth = getUrlVars()["area"];
+		var seventh = getUrlVars()["email"];
+ 
+     
+		appendTo("problemArea", first);
+		appendTo("problemArea", second);
+		appendTo("problemArea",third);
+		appendTo("problemArea", fourth);
+		appendTo("problemArea", fifth);
+		appendTo("problemArea", sixth);
+		appendTo("problemArea", seventh);
+		
+       
+		</script>  
+		
+	</body>
+</html>
