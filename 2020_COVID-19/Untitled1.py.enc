@@ -1,0 +1,124 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+path= "C:/Users/Chigozie/Desktop/nigeriaraindays/"
+
+
+# In[2]:
+
+
+import os
+from os.path import join
+import warnings
+warnings.filterwarnings('ignore')
+
+
+# In[3]:
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# In[62]:
+
+
+data= pd.read_excel(join(path, 'Rain days.xlsx'))
+
+
+# In[16]:
+
+
+data.head()
+
+# here i am extracting the date and time differently hence i am splitting the text and using the first item in the list as date 
+# and the second item as time (hence the 0 and 1)
+
+data['date'] = data['Date and Time'].apply(lambda x: x.split('at')[0])
+data['time'] = data['Date and Time'].apply(lambda x: x.split('at')[1])
+
+# Another method is to join after splitting them as below
+# In[63]:
+
+
+data['Datetime'] = data['Date and Time'].apply(lambda x: ''.join(x.split('at')))
+
+
+# the datetime column is in string datatype('object'), hence we will convert it to the datetime datatype
+
+# In[64]:
+
+
+data.Datetime.dtype
+
+
+# In[65]:
+
+
+data['Datetime'] = pd.to_datetime(data.Datetime)
+
+
+# In[66]:
+
+
+data.Datetime.dtype
+
+
+# Now we will extract the numbers in temperature in fahrenheit and celsius
+# 
+# Disclaimer: I would advice u remove one from your model since they all encode same thing (which is temperature in different types)
+
+# In[67]:
+
+
+data['Temp C'] = data['Temp C'].str.replace(r'C', '')
+data['Temp F'] = data['Temp F'].str.replace(r'F', '')
+
+
+# In[81]:
+
+
+#converting to numeric
+data['Temp C'] = data['Temp C'].astype(float)
+data['Temp F'] = data['Temp F'].astype(float)
+
+
+# In[68]:
+
+
+data.Type.unique()
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+# Let me create more features from the datetime feature
+
+# In[71]:
+
+
+data['year'] = data.Datetime.dt.year
+data['month'] = data.Datetime.dt.month
+data['day'] = data.Datetime.dt.day
+data['dayofweek'] = data.Datetime.dt.dayofweek
+data['hour'] = data.Datetime.dt.hour
+data['minute'] = data.Datetime.dt.minute
+data['week'] = data.Datetime.dt.week
+
+
+# In[74]:
+
+
+data.head()
+
